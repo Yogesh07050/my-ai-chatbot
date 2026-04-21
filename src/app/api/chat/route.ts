@@ -5,9 +5,9 @@ export async function POST(req: Request) {
   try {
     const { messages } = await req.json();
 
-    if (!process.env.GROK_API_KEY) {
+    if (!process.env.GROQ_API_KEY) {
       return NextResponse.json(
-        { error: 'GROK_API_KEY is not configured' },
+        { error: 'GROQ_API_KEY is not configured' },
         { status: 500 }
       );
     }

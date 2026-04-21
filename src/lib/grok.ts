@@ -1,9 +1,9 @@
 import OpenAI from 'openai';
 import { AI_PROFILE } from './ai-profile';
 
-const xai = new OpenAI({
-  apiKey: process.env.GROK_API_KEY || '',
-  baseURL: 'https://api.x.ai/v1',
+const groq = new OpenAI({
+  apiKey: process.env.GROQ_API_KEY || '',
+  baseURL: 'https://api.groq.com/openai/v1',
 });
 
 export async function getGrokResponse(messages: { role: 'user' | 'assistant' | 'system', content: string }[]) {
@@ -47,8 +47,8 @@ GUIDELINES:
 `;
 
   try {
-    const response = await xai.chat.completions.create({
-      model: 'grok-2-latest', // Or 'grok-beta' or 'grok-2-1212'
+    const response = await groq.chat.completions.create({
+      model: 'llama-3.3-70b-versatile',
       messages: [
         { role: 'system', content: systemPrompt },
         ...messages
@@ -58,7 +58,7 @@ GUIDELINES:
 
     return response;
   } catch (error) {
-    console.error('Error calling Grok API:', error);
+    console.error('Error calling Groq API:', error);
     throw error;
   }
 }
